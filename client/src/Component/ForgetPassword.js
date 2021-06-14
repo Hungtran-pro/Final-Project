@@ -4,7 +4,6 @@ import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import { Link, useHistory } from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -50,56 +49,30 @@ export default function SignUp() {
   const { state, dispatch } = useContext(UserContext);
   const classes = useStyles();
   const history = useHistory();
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const SignIn = () => {
-    const data = {
-      username: username,
-      password: password,
-    };
-    axios
-      .post("http://localhost:5000/signin", data)
-      .then((res) => {
-        if (res.data.error) {
-          M.toast({ html: res.data.error, classes: "red" });
-        } else {
-          localStorage.setItem("jwt", res.data.token);
-          localStorage.setItem("user", JSON.stringify(res.data.user));
-          dispatch({ type: "USER", payload: res.data.user });
-          M.toast({ html: "Signed in successfully", classes: "green" });
-          history.push("/");
-        }
-      })
-      .catch((err) => console.log(err));
-    // fetch("http://localhost:5000/signin", {
-    //   method: "post",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     password,
-    //     email,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.error) {
-    //       M.toast({ html: data.error, classes: "red" });
-    //     } else {
-    //       localStorage.setItem("jwt", data.token);
-    //       localStorage.setItem("user", JSON.stringify(data.user));
-    //       dispatch({ type: "USER", payload: data.user });
-    //       M.toast({ html: "Signed in successfully", classes: "green" });
-    //       history.push("/");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+  const ChangePassword = () => {
+    if (confirmPassword !== password) {
+      M.toast({ html: "Password does not match", classes: "red" });
+      return;
+    }
+    fetch("http://localhost:5000/changepassword", {
+      method: "put",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        M.toast({ html: result.data, classes: "green" });
+        history.push("/profile");
+      });
   };
-
   return (
     <div className="signup">
       <Container component="main" maxWidth="xs">
@@ -107,12 +80,12 @@ export default function SignUp() {
           <CssBaseline />
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
-              Sign In
+              Change Password
             </Typography>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                SignIn();
+                ChangePassword();
               }}
               className={classes.form}
               noValidate
@@ -122,22 +95,24 @@ export default function SignUp() {
                 margin="normal"
                 required
                 fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoFocus
-                onChange={(e) => setUsername(e.target.value)}
+                name="password"
+                label="New Password"
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                name="password"
-                label="Password"
+                name="confirmPassword"
+                label="Confirm New Password"
                 type="password"
-                id="password"
-                onChange={(e) => setPassword(e.target.value)}
+                id="confirmPassword"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmPassword}
               />
 
               <Button
@@ -147,15 +122,8 @@ export default function SignUp() {
                 type="submit"
                 className={classes.submit}
               >
-                Sign In
+                Change Password
               </Button>
-              <Grid container>
-                <Grid item>
-                  <Link to="/signup" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
             </form>
           </div>
         </div>

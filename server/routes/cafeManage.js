@@ -11,6 +11,16 @@ router.get("/cafe", (req, res) => {
   })
 });
 
+router.route("/countCafes").get(function(req, res) {
+  Cafe.count({}, function(err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
+
 router.get("/cafe/:page", (req, res) => {
   let cafePerPage = 10;
   let page = req.params.page || 1;
