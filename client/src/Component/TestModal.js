@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import "../Style/Rightbar.css";
 import Modal from "@material-ui/core/Modal";
 import { Avatar } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import M from "materialize-css";
 import { makeStyles } from "@material-ui/core/styles";
 import { UserContext } from "../App";
@@ -12,9 +13,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: "40%",
-    height: "70%",
     backgroundColor: theme.palette.background.paper,
-    // border: "2px solid #000",
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -26,6 +26,7 @@ function Rightbar() {
   const [body, setBody] = useState("");
   const [title, setTitle] = useState("");
   const { state, dispatch } = useContext(UserContext);
+  const history = useHistory();
   const user = JSON.parse(localStorage.getItem("user"));
 
   const AddPost = () => {
@@ -60,14 +61,6 @@ function Rightbar() {
       });
   };
 
-  const handleClick = () => {
-    if (state) {
-      setOpenModal(true);
-    } else {
-      M.toast({ html: "Please sign in first!", classes: "red" });
-    }
-  };
-
   const bodyContent = (
     <div
       className={classes.paper}
@@ -77,10 +70,10 @@ function Rightbar() {
         transform: `translate(-50%, -35%)`,
       }}
     >
-      <h2>Ask Question</h2>
+      <h5>Ask Question</h5>
       <div className="modalInfo">
-        <Avatar className="avatar" src={user?.pic} />
-        <p>{user?.username} asks:</p>
+        <Avatar className="avatar" src={user.pic} />
+        <p>{user.username} asks:</p>
       </div>
 
       <div className="modalField">
@@ -111,22 +104,33 @@ function Rightbar() {
     </div>
   );
   const render = () => {
-    return (
-      <div>
-        <button onClick={() => handleClick()}>Ask Question</button>
-        <Modal
-          open={openModal}
-          onClose={() => setOpenModal(false)}
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
+    if (state) {
+      return (
+        <div>
+          <button onClick={() => setOpenModal(true)}>Ask Question</button>
+          <Modal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={openModal}>{bodyContent}</Fade>
+          </Modal>
+        </div>
+      );
+    } else {
+      return (
+        <button
+          onClick={() => {
+            history.push("/signin");
           }}
-          disableBackdropClick={true}
         >
-          <Fade in={openModal}>{bodyContent}</Fade>
-        </Modal>
-      </div>
-    );
+          Sign In
+        </button>
+      );
+    }
   };
 
   return (

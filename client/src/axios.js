@@ -16,3 +16,19 @@ export const getCafeInPage = (index) => {
 export const getNumberOfPages = () => {
   return instanceAxios.get("countCafes/");
 }
+
+export const getSelectedCafes = (body) => {
+  return instanceAxios.post("cafeSelected/", body);
+}
+
+export const getSelectedCityCafes = (body) => {
+  return instanceAxios.post("cafeCitySelected", body);
+}
+
+export const getNumberCitySelectedCafes = (body) => {
+  return instanceAxios.post("countSelectedCityCafes/", body);
+}
+
+export const getNumberSelectedCafes = (body) => {
+  return instanceAxios.post("countSelectedCafes/", body);
+}

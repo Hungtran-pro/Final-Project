@@ -6,7 +6,7 @@ const Post = mongoose.model("Post");
 const User = mongoose.model("User");
 const bcrypt = require("bcryptjs");
 
-router.get("/user/:id", requireLogin, (req, res) => {
+router.get("/user/:id", (req, res) => {
   User.findOne({ _id: req.params.id })
     .then("-password")
     .then((user) => {
@@ -48,6 +48,28 @@ router.put("/changepassword", requireLogin, async (req, res) => {
   } catch (error) {
     return res.json({ error: "Error occured" });
   }
+});
+
+router.get("/allusers", (req, res) => {
+  User.find()
+    .then((users) => {
+      res.json({ users });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.delete("/deleteuser/:id", requireLogin, (req, res) => {
+  User.findByIdAndDelete({ _id: req.params.id }, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      Post.deleteMany({ postedBy: result._id }).then((result) =>
+        res.json(result)
+      );
+    }
+  });
 });
 
 module.exports = router;

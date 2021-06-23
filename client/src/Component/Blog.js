@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../App";
 import "../Style/Blog.css";
 import Avatar from "@material-ui/core/Avatar";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import {
   Bookmark,
@@ -182,7 +181,7 @@ const Blog = () => {
           <div className="post" key={item._id}>
             <div className="postHeader">
               <div className="authorInfo">
-                <Avatar src={item.postedBy.pic} />
+                <Avatar src={item.postedBy?.pic} />
 
                 <h4>
                   <Link
@@ -214,7 +213,9 @@ const Blog = () => {
             </div>
 
             <div className="postContent">
-              <h3>{item.title}</h3>
+              <h3>
+                <Link to={"/searchpage/" + item.title}>{item.title}</Link>
+              </h3>
               <p>{item.body}</p>
               {/* <img src={item.pic ? item.pic : null} /> */}
               {item.comments.map((record) => {

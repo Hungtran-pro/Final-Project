@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const requireLogin = require("../middleware/requireLogin");
+const User = mongoose.model("User");
 const Post = mongoose.model("Post");
 
 router.get("/allposts", (req, res) => {
@@ -189,4 +190,37 @@ router.delete("/deletepost/:postId", requireLogin, (req, res) => {
       }
     });
 });
+router.post("/searchuser", (req, res) => {
+  let userPattern = new RegExp("^" + req.body.query);
+  User.find({ username: { $regex: userPattern } })
+    .select("_id username pic")
+    .then((user) => {
+      res.json({ user });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.get("/searchtitle/:title", (req, res) => {
+  Post.find({ title: { $in: req.params.title } })
+    .populate("postedBy", "_id username pic")
+    .populate("comments.postedBy", "_id username pic")
+    .then((posts) => {
+      res.json({ posts });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 module.exports = router;
+
+router.delete("/deletepostadmin/:postId", requireLogin, (req, res) => {
+  Post.findByIdAndDelete({ _id: req.params.postId }, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+});

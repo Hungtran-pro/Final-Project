@@ -4,7 +4,7 @@ let cafeSchema = mongoose.Schema({
   name: String,
   address: String,
   addressCity: String,
-  addressDistrcit: String,
+  addressDistrict: String,
   description: String,
   capability: Number,
   url: String,

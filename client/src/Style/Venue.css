@@ -6,30 +6,70 @@
   margin-top: 30px;
 }
 
-.search {
-  width: 17vw;
-  text-align: center;
-  background-color: grey;
+.MuiBackdrop-root {
+  background: none !important;
 }
 
-.cafe {
-  width: 50vw;
-  margin-left: 1vw;
-  background-color: grey;
+.MuiPagination-ul {
+  justify-content: center;
+}
+
+.map {
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.mapTitle {
+  text-align: center;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #6b6b6b;
 }
 
 .image {
   width: 20vw;
-  /* background-color: grey; */
   justify-content: center;
 }
-
-.image img {
-  width: 20vw;
-  height: auto;
-}
-
 .buttonSearch {
   max-height: 30px;
   margin-left: 20px !important;
+}
+
+.rightImg {
+  margin-top: 11vh;
+  width: 32vw;
+  height: auto;
+  position: fixed;
+  overflow-y: auto;
+  /* background-color: none; */
+}
+
+.scrollToTop{
+  position: fixed;
+  overflow-y: auto;
+  bottom: 4vh;
+  right: 3vw;
+}
+
+.shapes-5 {
+  margin-top: 25vh !important;
+  width: 40px;
+  height: 40px;
+  color:#83a2d4;
+  background:
+    linear-gradient(currentColor 0 0),
+    linear-gradient(currentColor 0 0),
+    linear-gradient(currentColor 0 0),
+    linear-gradient(currentColor 0 0);
+  background-size: 21px 21px;
+  background-repeat:no-repeat;
+  animation: sh5 0.8s infinite cubic-bezier(0.3,1,0,1);
+}
+@keyframes sh5 {
+ 0%   {background-position: 0    0,100% 0   ,100% 100%,0 100%}
+ 33%  {background-position: 0    0,100% 0   ,100% 100%,0 100%;width:60px;height: 60px}
+ 66%  {background-position: 100% 0,100% 100%,0    100%,0 0   ;width:60px;height: 60px}
+ 100% {background-position: 100% 0,100% 100%,0    100%,0 0   }
 }

@@ -5,14 +5,67 @@ const Cafe = require("../models/cafe");
 router.get("/cafe", (req, res) => {
   let cafePerPage = 10;
   let page = req.params.page || 1;
-  Cafe.find().skip((cafePerPage * page) - cafePerPage).limit(cafePerPage).exec((err, cafes) => {
-    if(err) throw err;
-    res.json(cafes);
-  })
+  Cafe.find()
+    .skip(cafePerPage * page - cafePerPage)
+    .limit(cafePerPage)
+    .exec((err, cafes) => {
+      if (err) throw err;
+      res.json(cafes);
+    });
 });
 
-router.route("/countCafes").get(function(req, res) {
-  Cafe.count({}, function(err, result) {
+router.route("/countCafes").get(function (req, res) {
+  Cafe.count({}, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+router.post("/cafeSelected", (req, res) => {
+  let cafePerPage = 10;
+  let page = req.params.page || 1;
+  let city = req.body.city;
+  let district = req.body.district;
+  Cafe.find({ addressCity: city, addressDistrict: district })
+    .skip(cafePerPage * page - cafePerPage)
+    .limit(cafePerPage)
+    .exec((err, cafes) => {
+      if (err) console.log(err);
+      res.json(cafes);
+    });
+});
+
+router.post("/cafeCitySelected", (req, res) => {
+  let cafePerPage = 10;
+  let page = req.params.page || 1;
+  let city = req.body.city;
+  Cafe.find({ addressCity: city})
+    .skip(cafePerPage * page - cafePerPage)
+    .limit(cafePerPage)
+    .exec((err, cafes) => {
+      if (err) console.log(err);
+      res.json(cafes);
+    });
+});
+
+router.route("/countSelectedCafes").post(function (req, res) {
+  let city = req.body.city;
+  let district = req.body.district;
+  Cafe.count({addressCity: city, addressDistrict: district }, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+router.route("/countSelectedCityCafes").post(function (req, res) {
+  let city = req.body.city;
+  Cafe.count({addressCity: city}, function (err, result) {
     if (err) {
       console.log(err);
     } else {
@@ -24,11 +77,14 @@ router.route("/countCafes").get(function(req, res) {
 router.get("/cafe/:page", (req, res) => {
   let cafePerPage = 10;
   let page = req.params.page || 1;
-  Cafe.find().skip((cafePerPage * page) - cafePerPage).limit(cafePerPage).exec((err, cafes) => {
-    if(err) throw err;
-    res.json(cafes);
-  })
-})
+  Cafe.find()
+    .skip(cafePerPage * page - cafePerPage)
+    .limit(cafePerPage)
+    .exec((err, cafes) => {
+      if (err) throw err;
+      res.json(cafes);
+    });
+});
 
 router.post("/cafe", (req, res) => {
   let cafeTmp = new Cafe(req.body);
