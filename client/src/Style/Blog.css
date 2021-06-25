@@ -2,18 +2,19 @@
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  width: 30%;
+  width: 45%;
   margin: auto;
-  margin-top: 11vh;
+  margin-top: 16vh;
   padding: auto;
 }
 
 .blog > .post {
   width: 100%;
   height: max-content;
-  background: rgb(241, 241, 241);
+  background: #f3f3f3;
   border: none;
-  margin: 10px;
+  border-radius: 5px;
+  margin-bottom: 4vh;
 }
 
 form > input {
@@ -21,8 +22,9 @@ form > input {
   padding: 5px 8px;
   box-sizing: border-box;
   border: none;
+  border-radius: 5px;
   border-bottom: 1px solid black;
-  background: rgb(241, 241, 241);
+  background: #f3f3f3;
 }
 form > input:focus {
   outline: none;
@@ -32,22 +34,29 @@ form > input:focus {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 50px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 1vw;
 }
+
+.postContent {
+  padding-left: 1vw;
+}
+
 .postContent > h5 {
-  margin-left: 10px;
   height: fit-content;
 }
 .comments {
-  padding-left: 30px;
+  background-color: #dbdbdb;
+  border-radius: 5px;
+  margin-left: 1vw;
+  margin-right: 2vw;
   font-size: 15px;
 }
+
 .authorInfo {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding-left: 1vw;
 }
 .authorInfo > * {
   margin-left: 4px;
@@ -78,4 +87,18 @@ form > input:focus {
 }
 .username {
   margin-left: 10px;
+}
+
+.likeIcon {
+  cursor: pointer;
+}
+
+.saveIcon {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  .blog {
+      width: 60vw !important;
+  }
 }

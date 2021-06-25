@@ -188,7 +188,7 @@ const Blog = () => {
                     style={{
                       textDecoration: "none",
                       color: "black",
-                      fontWeight: "normal",
+                      fontWeight: "600",
                     }}
                     to={
                       state
@@ -202,19 +202,23 @@ const Blog = () => {
                   </Link>
                 </h4>
               </div>
-              {state
+              {/* {state
                 ? item.postedBy._id === state._id && (
                     <DeleteOutline
                       onClick={() => deletePost(item._id)}
                       style={{ cursor: "pointer" }}
                     />
                   )
-                : null}
+                : null} */}
             </div>
 
             <div className="postContent">
               <h3>
-                <Link to={"/searchpage/" + item.title}>{item.title}</Link>
+                <Link style={{
+                      textDecoration: "none",
+                      color: "black",
+                      fontWeight: "600",
+                    }} to={"/searchpage/" + item.title}>{item.title}</Link>
               </h3>
               <p>{item.body}</p>
               {/* <img src={item.pic ? item.pic : null} /> */}
@@ -265,7 +269,7 @@ const Blog = () => {
                   {state ? (
                     item.saved.includes(state._id) ? (
                       <Bookmark
-                        style={{ color: "blue", marginTop: "20px" }}
+                        style={{ color: "black", marginTop: "20px" }}
                         onClick={() => unSavePost(item._id)}
                       />
                     ) : (
@@ -297,6 +301,9 @@ const Blog = () => {
                 {item.likes.length} {item.likes.length == 1 ? "like" : "likes"}
               </h5>
               <form
+              style={{
+                marginLeft: "-1vw",
+              }}
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (e.target[0].value !== "") {

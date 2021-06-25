@@ -62,6 +62,11 @@ const useStyles = makeStyles((theme) => ({
     // boxShadow: theme.shadows[5],
     padding: theme.spacing(0, 4, 3),
   },
+  nothing: {
+    marginTop: "13vh",
+    fontFamily: "Monda, sans-serif",
+    fontWeight: "500",
+  }
 }));
 
 function Venue(props) {
@@ -90,7 +95,7 @@ function Venue(props) {
           setLoading(false);
           setCafe(null);
         });
-    }, 3000);
+    }, 1500);
   }, []);
 
   const bodyContent = (url) => (
@@ -116,11 +121,27 @@ function Venue(props) {
   );
 
   const handleChangePage = (event, page) => {
+    setLoading(true);
     setPage(page);
+    setTimeout(() => {
     getCafeInPage(page).then((res) => {
+      setLoading(false);
       setCafe(res.data);
+    }).catch((err) => {
+      setLoading(false);
+      setCafe(null);
     });
-    window.scrollTo(0, 0);
+    //   getCafe()
+    //     .then((res) => {
+    //       setCafe(res.data);
+    //       setLoading(false);
+    //     })
+    //     .catch((err) => {
+    //       setLoading(false);
+    //       setCafe(null);
+    //     });
+    }, 1500);
+    // window.scrollTo(0, 0);
   };
 
   const callBackSetCity = (citySelected) => {
@@ -151,7 +172,7 @@ function Venue(props) {
             setLoading(false);
             setCafe(null);
           });
-      }, 3000);
+      }, 1500);
     } else if (city && !district) {
       setLoading(true);
       setTimeout(() => {
@@ -167,7 +188,7 @@ function Venue(props) {
             setLoading(false);
             setCafe(null);
           });
-      }, 3000);
+      }, 1500);
     } else {
       setLoading(true);
       setTimeout(() => {
@@ -183,7 +204,7 @@ function Venue(props) {
             setLoading(false);
             setCafe(null);
           });
-      }, 2000);
+      }, 1500);
       // getSelectedCafes(body).then((res) => {
       //   setCafe(res.data);
       // });
@@ -279,11 +300,11 @@ function Venue(props) {
           </Grid>
         </Hidden>
         <Grid container item xs={width === "sm" ? 7 : width === "xs" ? 10 : 5} className={classes.middle}>
-          {console.log(width)}
           {loading ? (
             <div class="shapes-5"></div>
-          ) : cafe ? (
+          ) : cafe && cafe.length ? (
             <div>
+              {console.log(cafe)}
               {cafe.map(renderCafe)}
               <Pagination
                 className={classes.pagination}
@@ -294,7 +315,7 @@ function Venue(props) {
               />
             </div>
           ) : (
-            <p>Nothing matches</p>
+            <p className={classes.nothing}>Nothing matches</p>
           )}
         </Grid>
         <Hidden smDown>

@@ -534,7 +534,7 @@ function Profile() {
       );
     }
   };
-  return <div>{render()}</div>;
+  return <div className="profileRoot">{render()}</div>;
 }
 
 export default Profile;

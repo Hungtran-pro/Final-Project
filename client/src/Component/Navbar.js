@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -75,6 +75,14 @@ export default function PrimarySearchAppBar() {
   const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      dispatch({ type: "USER", payload: user });
+    }
+  }, []);
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const goToBlog = () => {
     history.push("/");
   };
@@ -115,6 +123,12 @@ export default function PrimarySearchAppBar() {
     handleMobileMenuClose();
   };
 
+  const handleMenuCloseManageUser = () => {
+    history.push("/admin");
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  }
+
   const handleMenuCloseLogout = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
@@ -139,6 +153,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuCloseProfile}>Profile</MenuItem>
+      {user. role === "admin" ? (<MenuItem onClick={handleMenuCloseManageUser}>Manage Users</MenuItem>) : ""}
       <MenuItem onClick={handleMenuCloseLogout}>Log out</MenuItem>
     </Menu>
   );

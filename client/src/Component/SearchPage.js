@@ -296,6 +296,9 @@ export default function SearchPage() {
                     {item.likes.length == 1 ? "like" : "likes"}
                   </h5>
                   <form
+                  style={{
+                    marginLeft: "-1vw",
+                  }}
                     onSubmit={(e) => {
                       e.preventDefault();
                       if (e.target[0].value !== "") {

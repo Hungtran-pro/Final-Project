@@ -72,7 +72,7 @@ const Routing = () => {
           <div className="home">
             <Leftbar />
             <Blog />
-            <Rightbar />
+            <Rightbar/>
           </div>
         ) : user.role === "admin" ? (
           <Admin />
@@ -89,7 +89,7 @@ const Routing = () => {
       </Route>
       <Route exact path="/searchpage/:title">
         <div className="search">
-          <Leftbar />
+          {/* <Leftbar /> */}
           <SearchPage />
         </div>
       </Route>

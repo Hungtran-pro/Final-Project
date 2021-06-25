@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import "../Style/Rightbar.css";
 import Modal from "@material-ui/core/Modal";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Button } from "@material-ui/core";
 import M from "materialize-css";
 import { makeStyles } from "@material-ui/core/styles";
 import { UserContext } from "../App";
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: "40%",
-    height: "70%",
+    height: "auto",
     backgroundColor: theme.palette.background.paper,
     // border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -113,7 +113,15 @@ function Rightbar() {
   const render = () => {
     return (
       <div>
-        <button onClick={() => handleClick()}>Ask Question</button>
+        <Button onClick={() => handleClick()}
+          size="small"
+          variant="text"
+          style={{ 
+            textTransform: "initial", 
+            textDecoration: "underline", 
+            color: "#bf5900", 
+            fontSize: "15px" 
+          }} >Ask Question here!</Button>
         <Modal
           open={openModal}
           onClose={() => setOpenModal(false)}
@@ -131,7 +139,7 @@ function Rightbar() {
 
   return (
     <div className="rightbar">
-      <p>If you have any questions, please let us know</p>
+      <p className="title">If you have any questions, please let us know</p>
       {render()}
 
       <img src="https://cdn.xlreporting.com/web/work-chat.png" alt="" />

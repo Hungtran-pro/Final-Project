@@ -1,19 +1,30 @@
-  .rightbar > img {
-  height: 200px;
-  width: 200px;
+.rightbar > img {
+  height: auto;
+  width: 20vw;
 }
+
 .rightbar {
-  height: 500px;
+  height: auto;
   width: 20%;
   background-color: #f3f3f3;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin-right: 50px;
+  margin-right: 3vw;
+  margin-top: 16vh;
   align-items: center;
   position: fixed;
+  border-radius: 5px;
   right: 0;
 }
+
+
+.title {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  text-align: center;
+}
+
 .modal {
   display: flex;
   flex-direction: column;
@@ -54,9 +65,7 @@
 .modalBtn {
   display: flex;
   align-items: center;
-  margin-top: 200px;
-  margin-right: -20px;
-  border-top: 1px solid lightgray;
+  margin-top: 5vh;
 }
 
 .modalBtn > .cancel {
@@ -90,4 +99,10 @@
   margin-left: 5px;
   padding: 10px 10px;
   line-height: 15px;
+}
+
+@media screen and (max-width: 1024px) {
+  .rightbar {
+      display: none !important;
+  }
 }

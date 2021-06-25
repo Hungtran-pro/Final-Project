@@ -184,7 +184,7 @@ function Profile() {
   return (
     <>
       {posts ? (
-        <div>
+        <div className="userProfile">
           <div
             style={{
               width: "40%",
@@ -324,6 +324,9 @@ function Profile() {
                       {item.likes.length == 1 ? "like" : "likes"}
                     </h5>
                     <form
+                    style={{
+                      marginLeft: "-1vw",
+                    }}
                       onSubmit={(e) => {
                         e.preventDefault();
                         if (e.target[0].value !== "") {
