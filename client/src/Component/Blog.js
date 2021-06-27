@@ -176,6 +176,7 @@ const Blog = () => {
   };
   return (
     <div className="blog">
+      {!data || data.length === 0 ? <div class="shapes-6"></div> : ""}
       {data.map((item) => {
         return (
           <div className="post" key={item._id}>

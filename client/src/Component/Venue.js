@@ -95,7 +95,7 @@ function Venue(props) {
           setLoading(false);
           setCafe(null);
         });
-    }, 1500);
+    }, 1000);
   }, []);
 
   const bodyContent = (url) => (
@@ -140,7 +140,7 @@ function Venue(props) {
     //       setLoading(false);
     //       setCafe(null);
     //     });
-    }, 1500);
+    }, 1000);
     // window.scrollTo(0, 0);
   };
 
@@ -172,7 +172,7 @@ function Venue(props) {
             setLoading(false);
             setCafe(null);
           });
-      }, 1500);
+      }, 1000);
     } else if (city && !district) {
       setLoading(true);
       setTimeout(() => {
@@ -188,7 +188,7 @@ function Venue(props) {
             setLoading(false);
             setCafe(null);
           });
-      }, 1500);
+      }, 1000);
     } else {
       setLoading(true);
       setTimeout(() => {
@@ -204,7 +204,7 @@ function Venue(props) {
             setLoading(false);
             setCafe(null);
           });
-      }, 1500);
+      }, 1000);
       // getSelectedCafes(body).then((res) => {
       //   setCafe(res.data);
       // });
