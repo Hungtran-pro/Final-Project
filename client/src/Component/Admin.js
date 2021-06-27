@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     width: 700,
     margin: "auto",
-    marginTop: "1%",
+    marginTop: "15vh",
   },
   root2: {
     padding: "2px 4px",
@@ -441,7 +441,7 @@ export default function FullWidthTabs() {
           <div className="blog">
             {data.map((item) => {
               return (
-                <div className="post" key={item._id} style={{ width: "300%" }}>
+                <div className="post" key={item._id} style={{ width:"150%" }}>
                   <div className="postHeader">
                     <div className="authorInfo">
                       <Avatar src={item?.postedBy.pic} />
@@ -556,6 +556,7 @@ export default function FullWidthTabs() {
                       {item.likes.length === 1 ? "like" : "likes"}
                     </h5>
                     <form
+                     style={{ marginLeft:"-1vw" }}
                       onSubmit={(e) => {
                         e.preventDefault();
                         if (e.target[0].value !== "") {

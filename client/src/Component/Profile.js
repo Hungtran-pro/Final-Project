@@ -86,7 +86,6 @@ function Profile() {
         .catch((err) => console.log(err));
     }
   }, [image]);
-
   console.log(data);
   const changePic = (file) => {
     setImage(file);

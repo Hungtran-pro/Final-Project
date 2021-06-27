@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import Avatar from '@material-ui/core/Avatar';
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -16,6 +17,7 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { UserContext } from "../App";
 import { useHistory } from "react-router-dom";
 
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -27,10 +29,14 @@ const useStyles = makeStyles((theme) => ({
   },
   func: {
     color: "black",
-    paddingLeft: "5vw",
+    marginLeft: "5vw",
     fontFamily: "Monda, sans-serif",
     fontWeight: "500",
     cursor: "pointer",
+    '&:hover': {
+      fontWeight: "700",
+      letterSpacing: "2px",
+    },
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -153,7 +159,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuCloseProfile}>Profile</MenuItem>
-      {user. role === "admin" ? (<MenuItem onClick={handleMenuCloseManageUser}>Manage Users</MenuItem>) : ""}
+      {user?.role === "admin" ? (<MenuItem onClick={handleMenuCloseManageUser}>Manage Users</MenuItem>) : ""}
       <MenuItem onClick={handleMenuCloseLogout}>Log out</MenuItem>
     </Menu>
   );
@@ -195,7 +201,14 @@ export default function PrimarySearchAppBar() {
             aria-haspopup="true"
             color="inherit"
           >
-            <AccountCircle />
+            {state ? <Avatar
+              src={state.pic}
+              style={{
+                width: "25px",
+                height: "25px",
+                // marginLeft: "-30%",
+              }}
+            /> : <AccountCircle />}
           </IconButton>
           <p>Profile</p>
         </MenuItem>
@@ -248,7 +261,15 @@ export default function PrimarySearchAppBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              {state ? <Avatar
+                src={state.pic}
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  // marginLeft: "-30%",
+                }}
+              /> : <AccountCircle />}
+
             </IconButton>
           ) : (
             <Button

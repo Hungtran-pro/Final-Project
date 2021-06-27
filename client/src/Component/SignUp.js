@@ -13,223 +13,230 @@ import M from "materialize-css";
 import axios from "axios";
 
 function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" to="/">
-        Cactus
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
+    return (
+        <Typography variant="body2" color="textSecondary" align="center">
+            {"Copyright © "}
+            <Link color="inherit" to="/">
+                Cactus
+            </Link>{" "}
+            {new Date().getFullYear()}
+            {"."}
+        </Typography>
+    );
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%",
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  upload: {
-    width: "20%",
-    marginTop: theme.spacing(1),
-  },
+    paper: {
+        marginTop: theme.spacing(8),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: "100%",
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+        fontWeight: '540',
+        fontFamily: "Monda, sans-serif",
+        letterSpacing: "2px",
+    },
+    upload: {
+        width: "20%",
+        marginTop: theme.spacing(1),
+    },
+    imageLogin: {
+        width: "50vw",
+        marginTop: "8vh",
+        marginLeft: "1vw",
+    }
 }));
 
 export default function SignUp() {
-  const history = useHistory();
-  const classes = useStyles();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [image, setImage] = useState("");
-  const [url, setUrl] = useState(undefined);
+    const history = useHistory();
+    const classes = useStyles();
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [image, setImage] = useState("");
+    const [url, setUrl] = useState(undefined);
 
-  useEffect(() => {
-    if (url) {
-      uploadFields();
-    }
-  }, [url]);
-
-  const uploadPic = () => {
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "cactus");
-    data.append("cloud_name", "dxeac7lyn");
-    fetch("https://api.cloudinary.com/v1_1/dxeac7lyn/image/upload", {
-      method: "post",
-      body: data,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setUrl(data.url);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const uploadFields = () => {
-    if (!/^[a-z0-9]{3,16}$/.test(username)) {
-      M.toast({
-        html: "Username must consist of 6 to 30 characters, and can only contain lowercase alphanumeric characters",
-        classes: "red",
-      });
-      return;
-    }
-    const payload = {
-      username: username,
-      password: password,
-      confirmPassword: confirmPassword,
-      pic: url,
-    };
-    axios
-      .post("http://localhost:5000/signup", payload)
-      .then((res) => {
-        if (res.data.error) {
-          M.toast({ html: res.data.error, classes: "red" });
-        } else {
-          M.toast({ html: res.data.message, classes: "green" });
-          history.push("/signin");
+    useEffect(() => {
+        if (url) {
+            uploadFields();
         }
-      })
-      .catch((err) => console.log(err));
-  };
+    }, [url]);
 
-  const SignUp = () => {
-    if (image) {
-      uploadPic();
-    } else {
-      uploadFields();
-    }
+    const uploadPic = () => {
+        const data = new FormData();
+        data.append("file", image);
+        data.append("upload_preset", "cactus");
+        data.append("cloud_name", "dxeac7lyn");
+        fetch("https://api.cloudinary.com/v1_1/dxeac7lyn/image/upload", {
+            method: "post",
+            body: data,
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setUrl(data.url);
+            })
+            .catch((err) => console.log(err));
+    };
 
-    // fetch("http://localhost:5000/signup", {
-    //   method: "post",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     name,
-    //     password,
-    //     email,
-    //     confirmPassword,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.error) {
-    //       M.toast({ html: data.error, classes: "red" });
-    //     } else {
-    //       M.toast({ html: data.message, classes: "green" });
-    //       history.push("/signin");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
+    const uploadFields = () => {
+        if (!/^[a-z0-9]{3,16}$/.test(username)) {
+            M.toast({
+                html: "Username must consist of 6 to 30 characters, and can only contain lowercase alphanumeric characters",
+                classes: "red",
+            });
+            return;
+        }
+        const payload = {
+            username: username,
+            password: password,
+            confirmPassword: confirmPassword,
+            pic: url,
+        };
+        axios
+            .post("http://localhost:5000/signup", payload)
+            .then((res) => {
+                if (res.data.error) {
+                    M.toast({ html: res.data.error, classes: "red" });
+                } else {
+                    M.toast({ html: res.data.message, classes: "green" });
+                    history.push("/signin");
+                }
+            })
+            .catch((err) => console.log(err));
+    };
 
-  return (
-    <div className="signup">
-      <Container component="main" maxWidth="xs">
-        <div>
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5">
-              Sign Up
-            </Typography>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                SignUp();
-              }}
-              className={classes.form}
-              noValidate
-            >
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoFocus
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="confirmPassword"
-                label="Confirm Password"
-                type="password"
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
+    const SignUp = () => {
+        if (image) {
+            uploadPic();
+        } else {
+            uploadFields();
+        }
 
-              <input
-                type="file"
-                onChange={(e) => setImage(e.target.files[0])}
-                style={{ background: "white", marginTop: "10px" }}
-              />
+        // fetch("http://localhost:5000/signup", {
+        //   method: "post",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     name,
+        //     password,
+        //     email,
+        //     confirmPassword,
+        //   }),
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     if (data.error) {
+        //       M.toast({ html: data.error, classes: "red" });
+        //     } else {
+        //       M.toast({ html: data.message, classes: "green" });
+        //       history.push("/signin");
+        //     }
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
+    };
 
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                type="submit"
-                className={classes.submit}
-              >
-                Sign Up
-              </Button>
-              <Grid container>
-                <Grid item>
-                  <Link to="/signin" variant="body2">
-                    {"Already have an account? Sign In"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
+    return (
+        <div className="signup">
+            <Container component="main" maxWidth="xs">
+                <div>
+                    <CssBaseline />
+                    <div className={classes.paper}>
+                        <Typography component="h1" variant="h5">
+                            Sign Up
+                        </Typography>
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                SignUp();
+                            }}
+                            className={classes.form}
+                            noValidate
+                        >
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="username"
+                                label="Username"
+                                name="username"
+                                autoFocus
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="confirmPassword"
+                                label="Confirm Password"
+                                type="password"
+                                id="confirmPassword"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+
+                            {/* <input
+                                type="file"
+                                onChange={(e) => setImage(e.target.files[0])}
+                                style={{ background: "white", marginTop: "10px" }}
+                            /> */}
+
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                type="submit"
+                                className={classes.submit}
+                            >
+                                Sign Up
+                            </Button>
+                            <Grid container>
+                                <Grid item>
+                                    <Link to="/signin" variant="body2">
+                                        {"Already have an account? Sign In"}
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </form>
+                    </div>
+                </div>
+
+                <Box mt={8}>
+                    <Copyright />
+                </Box>
+            </Container>
+            <div className={classes.imageLogin}>
+                <img className={classes.imageLogin}
+                    src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/authentication_fsn5.svg"
+                    alt="fix"
+                />
+            </div>
         </div>
-
-        <Box mt={8}>
-          <Copyright />
-        </Box>
-      </Container>
-      <div className="image">
-        <img
-          src="https://ih1.redbubble.net/image.1539737948.3563/raf,600x600,075,t,FFFFFF:97ab1c12de.jpg"
-          alt=""
-        />
-      </div>
-    </div>
-  );
+    );
 }

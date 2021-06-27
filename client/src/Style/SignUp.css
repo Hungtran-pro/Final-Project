@@ -1,8 +1,6 @@
 .signup {
+  margin-top: 5vh;
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-around;
-}
-.image {
-  margin-left: 200px;
+  /* justify-content: space-around; */
 }

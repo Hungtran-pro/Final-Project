@@ -43,7 +43,15 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    fontWeight: '540',
+    fontFamily: "Monda, sans-serif",
+    letterSpacing: "2px",
   },
+  imageLogin: {
+    width: "50vw",
+    marginTop: "8vh",
+    marginLeft: "1vw",
+  }
 }));
 
 export default function SignUp() {
@@ -142,8 +150,7 @@ export default function SignUp() {
 
               <Button
                 fullWidth
-                variant="contained"
-                color="primary"
+                variant="outlined"
                 type="submit"
                 className={classes.submit}
               >
@@ -164,10 +171,10 @@ export default function SignUp() {
           <Copyright />
         </Box>
       </Container>
-      <div className="image">
-        <img
-          src="https://ih1.redbubble.net/image.1539737948.3563/raf,600x600,075,t,FFFFFF:97ab1c12de.jpg"
-          alt=""
+      <div className={classes.imageLogin}>
+        <img className={classes.imageLogin}
+          src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/authentication_fsn5.svg"
+          alt="fix"
         />
       </div>
     </div>
